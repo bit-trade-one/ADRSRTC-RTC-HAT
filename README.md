@@ -66,7 +66,7 @@ $  sudo python3 setup.py install
 $  cd examples
 $  python3 stats.py
 ```
-## スイッチ・LED・ブザーサンプルプログラム
+## スイッチ・LED・ブザーサンプルプログラム(Switch-LED-Buzz2021-07-28.py)
 
 スイッチを押すと同じ並びのLEDが点灯します。  
 4つ全部押すとブザーが鳴動します。  
