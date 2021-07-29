@@ -1,3 +1,76 @@
+# RTC基板初期設定
+
+## RTC機能初期設定  
+
+・RTC機能インストール  
+
+1. /boot/config.txtに追記  
+
+```
+  dtparam=i2c_arm=on
+  dtoverlay=i2c-rtc,ds3231
+```
+
+2. NTPを停止  
+
+以下のコマンドを実行して下さい  
+```
+$  sudo systemctl stop systemd-timesyncd
+$  sudo systemctl disable systemd-timesyncd
+```
+
+3. fake-hwlockを削除  
+
+以下のコマンドを実行して下さい  
+```
+$  apt-get -y remove fake-hwclock
+$  update-rc.d -f fake-hwclock remove
+$  systemctl disable fake-hwclock
+```
+
+4. 現在時刻をRTCに書き込みして再起動  
+
+以下のコマンドを実行して下さい  
+```
+$  sudo hwclock -w
+$  sudo reboot
+```
+
+5. 起動時RTCを読み込む設定  
+
+・/etc/default/hwclock  
+ファイル内の以下の行の先頭の'#'を削除してコメントアウトを解除してください。
+```
+#HCTOSYS_DEVICE=rtc0
+```
+
+・/lib/udev/hwclock-set  
+ファイル内の以下の行すべての先頭に'#'を記入してコメントアウトしてください。
+```
+if [ -e /run/systemd/system ] ; then
+    exit 0
+fi
+```
+
+## OLED機能初期設定  
+
+1. ライブラリインストール  
+```
+$  git clone https://github.com/adafruit/Adafruit_Python_SSD1306.git
+$  cd Adafruit_Python_SSD1306
+$  sudo python3 setup.py install
+```
+
+2. サンプルプログラムを動作  
+```
+$  cd examples
+$  python3 stats.py
+```
+## スイッチ・LED・ブザーサンプルプログラム
+
+スイッチを押すと同じ並びのLEDが点灯します。  
+4つ全部押すとブザーが鳴動します。  
+<!--
 # -ADXXXXX-Template
 
 ## ここに見出し
@@ -35,7 +108,7 @@ exp.
 "#"を増やすと下位の見出しになる
 
 
--->
+-- >
 
 
 <!--
@@ -45,7 +118,7 @@ exp.
 
 ソフトの使い方、ライブラリの使い方などがWordなどである場合は、
 各情報フォルダにMarkdown形式に起こし"Readme.md"という名前で保存すること
--->
+-- >
 
 # [製品の詳細はこちら](http://bit-trade-one.co.jp/) 
 
@@ -96,3 +169,4 @@ exp.
     【保証期間】 1年間
     【付属品】保証書 1部
     【生産国】Made in Japan
+-->
