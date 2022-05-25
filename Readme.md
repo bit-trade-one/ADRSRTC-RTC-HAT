@@ -1,4 +1,4 @@
-# ADRSRTC-リアルタイムクロック拡張ボードのインストール
+# ADRSRTC-リアルタイムクロック拡張ボード
 
 ### *製品ページは[こちら](https://bit-trade-one.co.jp/adrsrtc/)*
 
